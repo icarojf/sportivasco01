@@ -39,13 +39,28 @@
 	
     
 	<style>
-      #map-container { height: 400px }
+      /* mapa*/
+	  #map-container { height: 400px }
 	  
-	  
+	  /*foto de publicacion*/
 	  .photoProfile{
 	    border-radius: 50%;
 		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
 	  }
+	  
+		/*color de paneles*/
+		#panelEncabezadoVentana, #panelEncabezadoVentana2 {
+			background-color: #1f2025;
+			color: #fd2078;
+		}
+			
+		body{
+			background: url('img/Pink-Background.jpg') no-repeat center center fixed; 
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
     </style>
 	
 </head>
@@ -62,6 +77,7 @@
 			$("#panelLogin").hide();
 			$("#panelPrincipal").show();
 			$("#panelEvento").hide();
+			$("body").css('background', 'none');
 		}
 		
 		$( document ).ready(function() {
@@ -138,10 +154,10 @@
 	</script>
 <body>
 	
-    <div id="panelLogin" class="container">    
-        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
-            <div class="panel panel-info" >
-                    <div class="panel-heading">
+    <div id="panelLogin" class="container" >    
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" >                    
+            <div class="panel panel-info"  style="opacity: 0.8;">
+                    <div class="panel-heading" id="panelEncabezadoVentana">
                         <div class="panel-title">Sportivas</div>
                         <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">¿Has olvidado tu contraseña?</a></div>
                     </div>     
@@ -202,10 +218,10 @@
                     </div>  
         </div>
         <div id="signupbox" style="display:none; margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
+                    <div class="panel panel-info"  style="opacity: 0.8;">
+                        <div class="panel-heading" id="panelEncabezadoVentana2">
                             <div class="panel-title">Registro</div>
-                            <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()">Registro</a></div>
+                            <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()">Login</a></div>
                         </div>  
                         <div class="panel-body" >
                             <form id="signupform" class="form-horizontal" role="form">
@@ -251,7 +267,7 @@
                                 <div class="form-group">
                                     <!-- Button -->                                        
                                     <div class="col-md-offset-3 col-md-9">
-                                        <button id="btn-signup" type="button" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Registrar</button>
+                                        <button id="btn-signup" type="button" class="btn btn-success"><i class="icon-hand-right"></i> &nbsp Registrar</button>
                                         <span style="margin-left:8px;">o</span>  
                                     </div>
                                 </div>
