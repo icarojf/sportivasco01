@@ -26,32 +26,34 @@ $( document ).ready(function() {
 	$("#btn-login").click(function() {	
 		
 		try{
-		
+			var u=$("#login-username").val();
+			var p=""+CryptoJS.MD5($("#login-password").val()).toString();
+			//alert(u+p);
 			$.ajax({
-				type: "GET",
-				//crossDomain: true,
-				//contentType: "application/json; charset=utf-8", 
-				//headers: { 'Access-Control-Allow-Origin': '*' },
+				type: "POST",
 				url: 'http://sportivas.com.co/_common/_ajax/login.php',
 				dataType: 'json', 
 				async:false,
-				data:{u:'icarojf@gmail.com', p:'fbc71ce36cc20790f2eeed2197898e71'},
-				
+				data:{u:u, p:p},				
 				success: function(msg) { 
-						//AjaxOK(msg);
-						
-					 },
-					 error: AjaxError
+						AjaxOK(msg);
+				},
+				error: AjaxError
 				});
 		
-		}catch(exception){alert(exception)}
+		}catch(exception){alert('e:'+exception)}
 
 		function AjaxOK(result) {
-					alert(result.d);
-					abrirPanelPrincipal();
-				} 
-				function AjaxError(result) { 
-					 alert("ERROR " + result.status + ' ' + result.statusText);
+			if(result=="1"){
+				alert('usuario o password sin coincidencias');
+			}else if(result.nickname!=null){
+				//alert('Bienvenido '+result.nickname);
+				abrirPanelPrincipal();
+			}
+		} 
+		
+		function AjaxError(result) { 
+			 alert("ERROR " + result.status + ' ' + result.statusText);
 		}
 	});
 	
@@ -59,12 +61,9 @@ $( document ).ready(function() {
 	$("#btn-signup").click(function() {	
 		try{
 			$.ajax({
-				type: "GET",
-				crossDomain: true,
-				contentType: "application/json; charset=utf-8", 
-				headers: { 'Access-Control-Allow-Origin': '*' },
-				url: 'http://sportivas.com.co/_common/_ajax/registro.php?callback=?',
-				dataType: 'jsonp', 
+				type: "POST",
+				url: 'http://sportivas.com.co/_common/_ajax/registro.php',
+				dataType: 'json', 
 				async:false,
 				data: {n:'usuario1', a : 'apellido', e : 'u@gmail.com',f : '01/02/2014',c : CryptoJS.MD5('123'), k : 'nickname'}, 
 				
