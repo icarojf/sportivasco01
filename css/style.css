@@ -1,0 +1,123 @@
+/********** VARIOS  *****************/
+/* mapa*/
+#map-container { height: 400px }
+
+/*foto de publicacion*/
+.photoProfile{
+  border-radius: 50%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+}
+
+/*color de paneles*/
+#panelEncabezadoVentana, #panelEncabezadoVentana2 {
+	background-color: #1f2025;
+	color: #fd2078;
+}
+	
+body{
+	background: url('../img/header4.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+@media (min-width: 768px) {
+    body{
+		background: url('../img/header4.jpg') no-repeat center center fixed; 
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+}
+@media (min-width: 992px) {
+    body{
+		background: url('../img/header4.jpg') no-repeat center center fixed; 
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+}
+@media (min-width: 1200px) {
+    body{
+		background: url('../img/header3.png') no-repeat center center fixed; 
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+}
+
+.panel-info > .panel-heading{
+	background-color: #2e2f37;
+    border-color: #1f2025;
+    color: #fd3987;
+}
+.panel-info{
+	border-color:#2e2f37;	
+}
+.list-group-item-warning{
+	color:#2e2f37;	
+}
+.input-group-addon{
+	background-color:#FD3987;	
+}
+/********** END VARIOS  *****************/
+
+/****** LOGIN *************/
+#panelLogin .panel{
+	background-color:transparent;
+	box-shadow:unset;	
+}
+#panelLogin .panel-info {
+	border-color:transparent;
+}
+#panelLogin .input-group-addon{
+	background-color:transparent;
+	border:none;	
+}
+.form-control{
+	border: 1px solid #fd2078;	
+}
+.glyphicon-user:before, .glyphicon-lock:before{
+	color:#fd2078;
+}
+.btn-success{
+	background-color: #fd2078;
+    border-color: #fd2078;
+    color: #fff;	
+}
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open > .dropdown-toggle.btn-success{
+	background-color: #fc0768;
+    border-color: #dd0259;
+    color: #fff;
+}
+.form-control:focus{
+	border-color:gray;	
+}
+.logoSportivas{
+	margin:0 auto;	
+	text-align:center;
+}
+.imglogo{
+	border-radius:3%;	
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+	width:80%;
+}
+.remember{
+	margin-top:30px;
+}
+
+/********* END LOGIN **************/
+
+/********* REGISTER SPORTS ********/
+#panelRegistrarDeportes label{
+	display: inline-block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    max-width: 100%;	
+}	
+/********* END REGISTER SPORTS ********/	
