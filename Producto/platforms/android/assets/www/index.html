@@ -4,7 +4,8 @@
 	  <meta charset="utf-8">
 	  <meta name="format-detection" content="telephone=no" />
 	  <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-	  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+	  <!--meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /-->
+	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	  <meta name="msapplication-tap-highlight" content="no" />
 
 	  <title>Sportivas</title>
@@ -195,6 +196,7 @@
 	<div style="height:60px"></div>
 	
 <div id="panelPrincipal" class="container" style="display:none">
+	
 	<div class="row clearfix">
 		<div class="col-md-12 column">
 			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -210,15 +212,16 @@
 						<li>
 							<a href="#"  onclick="abrirPanelEventos()" >Eventos</a>
 						</li>
-                        <li>
+						<li>
+						    <a href="#" onclick="abrirPanelEscenarios()" >Escenarios</a>
+						</li>
+						<li>
 							<a href="#"  onclick="abrirPanelRegistrarDeportes()" >Registrar Deportes de Interes</a>
 						</li>
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mas...<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
-								<li>
-									<a href="#">Escenarios</a>
-								</li>
+								
 								<li>
 									<a href="#">Amigos</a>
 								</li>
@@ -239,69 +242,70 @@
 			</nav>
 		</div>
 	</div>
-    <div class="row clearfix">
-		<div class="col-md-12 column">
-			<div class="media well">
-				 <a href="#" class="pull-left"><img src="http://www.40defiebre.com/wp-content/uploads/2013/12/Captura-de-pantalla-2013-12-08-a-las-12.41.00-64x64.png" class="media-object photoProfile" alt='' /></a>
-				<div class="media-body">
-					<h4 class="media-heading">
-						Maria
-					</h4> Grandioso partido el de hoy!
-				</div>
-				<br/>
-				<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i><span class="badge">10</span></span>
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i><span class="badge">1</span></span>
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-share"></i></span>
+	<div id="panelMuro" class="container" style="display:none">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="media well">
+					 <a href="#" class="pull-left"><img src="http://www.40defiebre.com/wp-content/uploads/2013/12/Captura-de-pantalla-2013-12-08-a-las-12.41.00-64x64.png" class="media-object photoProfile" alt='' /></a>
+					<div class="media-body">
+						<h4 class="media-heading">
+							Maria
+						</h4> Grandioso partido el de hoy!
 					</div>
-					<div class="media" style="margin-left:12%">
-						 <a href="#" class="pull-left"><img src="http://www.40defiebre.com/wp-content/uploads/2013/08/photo-64x64.png" class="media-object photoProfile" alt='' /></a>
-						<div class="media-body">
-							<h4 class="media-heading">
-								Ashlee
-							</h4> Gracias por la invitación.
-						</div>
-					</div>
-			</div>
-			
-            <div class="media well">
-				 <a href="#" class="pull-left"><img src="http://f3.trucoteca.com/logros/beijing-2008-el-videojuego-oficial-de-los-juegos/xbox-360-gran-clase-en-ciclismo_bn.jpg" class="media-object photoProfile" alt='' /></a>
-				<div class="media-body">
-					<h4 class="media-heading">Centro de Eventos</h4>
-					El proximo domingo encuentro de ciclismo femenino en la av 23. Los esperamos!
-				</div>
-				<br/>
-				<img alt="32x32" src="http://www.elnortedecastilla.es/prensa/noticias/200807/20/fotos/213291.jpg" style="width: 100%;"/>
-				<br/>
-				
-				<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i><span class="badge">11</span></span>
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i><span class="badge">20</span></span>
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-share"></i></span>
-				</div>
-				
-			</div>
-            
-            <div class="media well">
-				 <a href="#" class="pull-left"><img src="http://diariocontraste.com/es/wp-content/uploads/2014/04/champs-tienda-deportiva_20120216105905-64x64.jpg" class="media-object photoProfile" alt='' /></a>
-				<div class="media-body">
-					<h4 class="media-heading">
-						Tienda deportiva
-					</h4> Promoción  2x1!
-                    </div>
 					<br/>
-					<img alt="32x32" src="https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-xaf1/t1.0-9/p526x296/10408518_817935554891832_6768717243071369415_n.jpg" style="width: 100%;"/>
-					<br/>
-				
 					<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i><span class="badge">1</span></span>
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i><span class="badge">2</span></span>
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i><span class="badge">10</span></span>
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i><span class="badge">1</span></span>
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-share"></i></span>
+						</div>
+						<div class="media" style="margin-left:12%">
+							 <a href="#" class="pull-left"><img src="http://www.40defiebre.com/wp-content/uploads/2013/08/photo-64x64.png" class="media-object photoProfile" alt='' /></a>
+							<div class="media-body">
+								<h4 class="media-heading">
+									Ashlee
+								</h4> Gracias por la invitación.
+							</div>
+						</div>
+				</div>
+				
+				<div class="media well">
+					 <a href="#" class="pull-left"><img src="http://f3.trucoteca.com/logros/beijing-2008-el-videojuego-oficial-de-los-juegos/xbox-360-gran-clase-en-ciclismo_bn.jpg" class="media-object photoProfile" alt='' /></a>
+					<div class="media-body">
+						<h4 class="media-heading">Centro de Eventos</h4>
+						El proximo domingo encuentro de ciclismo femenino en la av 23. Los esperamos!
+					</div>
+					<br/>
+					<img alt="32x32" src="http://www.elnortedecastilla.es/prensa/noticias/200807/20/fotos/213291.jpg" style="width: 100%;"/>
+					<br/>
+					
+					<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i><span class="badge">11</span></span>
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i><span class="badge">20</span></span>
 					  <span class="input-group-addon"><i class="glyphicon glyphicon-share"></i></span>
 					</div>
+					
+				</div>
+				
+				<div class="media well">
+					 <a href="#" class="pull-left"><img src="http://diariocontraste.com/es/wp-content/uploads/2014/04/champs-tienda-deportiva_20120216105905-64x64.jpg" class="media-object photoProfile" alt='' /></a>
+					<div class="media-body">
+						<h4 class="media-heading">
+							Tienda deportiva
+						</h4> Promoción  2x1!
+						</div>
+						<br/>
+						<img alt="32x32" src="https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-xaf1/t1.0-9/p526x296/10408518_817935554891832_6768717243071369415_n.jpg" style="width: 100%;"/>
+						<br/>
+					
+						<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i><span class="badge">1</span></span>
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i><span class="badge">2</span></span>
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-share"></i></span>
+						</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 <div id="panelEvento" class="container" style="display:none">
 		<div class="panel panel-info">
@@ -356,6 +360,32 @@
 			 </div>
 		</div>
 </div>
+
+<div id="panelEscenarios" class="container" style="display:none">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">Escenarios</div>
+			</div>  
+			<div class="panel-body" >
+				<form id="eventform" class="form-horizontal" role="form">
+					
+					<div id="eventformalert" style="display:none" class="alert alert-danger">
+						<p>Error:</p>
+						<span></span>
+					</div>
+					<div class="form-group">
+						<label for="nombreEscenario" class="col-md-3 control-label">Nombre</label>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="nombreEscenario" placeholder="Nombre Escenario">
+						</div>
+					</div>
+					<div id="map-container-spaces" ></div>
+				</form>
+			 </div>
+		</div>
+</div>
+
+
 
 <div id="panelRegistrarDeportes" class="container" style="display:none">
 		<div class="panel panel-info">
@@ -453,7 +483,9 @@
 				</form>
 			 </div>
 		</div>
-</div>			
+</div>
+	
+</div>		
 			
 </body>
 </html>
