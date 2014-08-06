@@ -1,9 +1,11 @@
 /*Variables globales*/
 var myLocation = new google.maps.LatLng(5.067132,-75.51828799999998);
-
+var servidorUrl = 'http://sportivas.com.co/';
 
 var map, mapEscenarios;
 var markers = [];
+
+var escenariosCiudad = [];// = ['Bosque popular', 'Coliseo mayor', 'Coliseo menor', 'Club Manizales', 'Escenario 1'];
 
 
  $(document).ready(function () {
@@ -14,6 +16,47 @@ var markers = [];
 		//$(".btn-navbar").click(); //bootstrap 2.x
 		$(".navbar-toggle").click() //bootstrap 3.x by Richard
 	});
+	$('.nav li a').on('click', function() {
+		$(this).parent().parent().find('.active').removeClass('active');
+		$(this).parent().addClass('active').css('font-weight', 'bold');
+	});
+	
+	var listaEscenariosCiudad = '[{"id":"2","nombre":"Bosque Popular","longitud":"-75.473853","latitud":"5.036146","direccion":"Cra 31 Via Enea","imagen":"_files\/escenario\/img\/20140803122230000000-__-bosque.jpg","telefono":"8890000","encargado":"Arnulfo Guar\u00edn"},{"id":"1","nombre":"Coliseo Mayor","longitud":"-75.487366","latitud":"5.057593","direccion":"Cra 23 # 63 - 18","imagen":"_files\/escenario\/img\/20140803122230000000-__-coliseo.jpeg","telefono":"8890000","encargado":"Mart\u00edn Munevar"}]';
+	listaEscenariosCiudad =eval(listaEscenariosCiudad);
+	
+	$.each(listaEscenariosCiudad, function (indice, dato) {	
+		escenariosCiudad[indice] = dato.nombre;
+ 	});
+	
+	
+	// Workaround for bug in mouse item selection
+	$.fn.typeahead.Constructor.prototype.blur = function() {
+		var that = this;
+		setTimeout(function () { that.hide() }, 250);
+	};
+		 
+	$('#escenarios_busqueda').typeahead({
+		source: function(query, process) {
+		return escenariosCiudad;
+		}
+	});
+	
+	$('#escenarios_busqueda').on('change', function(event) {
+		clearMarkers();
+		setInMap(map, event.target.value);
+	});
+	
+	$('#nombreEscenarioUno_busqueda').typeahead({
+		source: function(query, process) {
+		return escenariosCiudad;
+		}
+	});
+	
+	$('#nombreEscenarioUno_busqueda').on('change', function(event) {
+		clearMarkers();
+		setInMap(mapEscenarios, event.target.value);
+	});
+  
 });
 
 
@@ -61,7 +104,7 @@ $( document ).ready(function() {
 			//alert(u+p);
 			$.ajax({
 				type: "POST",
-				url: 'http://sportivas.com.co/_common/_ajax/login.php',
+				url: servidorUrl +'_common/_ajax/login.php',
 				dataType: 'json', 
 				async:false,
 				data:{u:u, p:p},				
@@ -92,7 +135,7 @@ $( document ).ready(function() {
 		try{
 			$.ajax({
 				type: "POST",
-				url: 'http://sportivas.com.co/_common/_ajax/registro.php',
+				url: servidorUrl + '_common/_ajax/registro.php',
 				dataType: 'json', 
 				async:false,
 				data: {n:'usuario1', a : 'apellido', e : 'u@gmail.com',f : '01/02/2014',c : CryptoJS.MD5('123'), k : 'nickname'}, 
@@ -150,16 +193,14 @@ function inicializarMapa() {
              var latlng = new google.maps.LatLng(latitude, longitude);
              map.setCenter(latlng);
 
-             var marker = new google.maps.Marker({
+             /*var marker = new google.maps.Marker({
                  map: map,
                  position: latlng,
-                 title: 'Hello World!',
+                 title: 'Ubicacion actual',
 				 draggable:true,
 				 animation: google.maps.Animation.DROP,
-
-
              });
-			 google.maps.event.addListener(marker, 'click', toggleBounce);
+			 google.maps.event.addListener(marker, 'click', toggleBounce);*/
 
          }
 
@@ -176,56 +217,41 @@ function toggleBounce() {
 }
 
 
+
+// Sets the map on all markers in the array.
+function setInMap(mapAux, value) {
+  for (var i = 0; i < markers.length; i++) {
+	if(escenariosCiudad[i]==value){
+		markers[i].setMap(mapAux);
+	}
+  }
+}
+
+// Sets the map on all markers in the array.
+function setAllMap(mapAux) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(mapAux);
+  }
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setAllMap(null);
+}
+
+// Shows any markers currently in the array.
+function showMarkers() {
+  setAllMap(mapAux);
+}
+
+
 /* Fin Mapa */
-
-
-/*Autocompletar*/
-  var substringMatcher = function(strs) {
-	  return function findMatches(q, cb) {
-	  var matches, substrRegex;
-
-	  // an array that will be populated with substring matches
-	  matches = [];
-	   
-	  // regex used to determine if a string contains the substring `q`
-	  substrRegex = new RegExp(q, 'i');
-	   
-	  // iterate through the pool of strings and for any string that
-	  // contains the substring `q`, add it to the `matches` array
-	  $.each(strs, function(i, str) {
-		  if (substrRegex.test(str)) {
-			  // the typeahead jQuery plugin expects suggestions to a
-			  // JavaScript object, refer to typeahead docs for more info
-			  matches.push({ value: str });
-		  }
-	  });
-	   
-	  cb(matches);
-	  };
-  };
-
-  var escenarios = ['Bosque popular', 'Coliseo mayor', 'Coliseo menor', 'Club Manizales', 'Escenario 1'];
-
-  $('#escenarios .typeahead').typeahead({
-	  hint: true,
-	  highlight: true,
-	  minLength: 1
-  },
-  {
-	  name: 'escenarios',
-	  displayKey: 'value',
-	  source: substringMatcher(escenarios)
-  });
-  
-  /*Fin Autocompletar*/
-  
   
   /*listar escenarios*/
-  
-  
   function listarEscenarios(){
   
-	var listaEscenarios = '[{"id":"2","nombre":"Bosque Popular","longitud":"-75.473853","latitud":"5.036146","direccion":"Cra 31 Via Enea","imagen":"_files\/escenario\/img\/20140803122230000000-__-bosque.png","telefono":"8890000","encargado":"Arnulfo Guar\u00edn"},{"id":"1","nombre":"Coliseo Mayor","longitud":"-75.487366","latitud":"5.057593","direccion":"Cra 23 # 63 - 18","imagen":"_files\/escenario\/img\/20140803122230000000-__-coliseo.png","telefono":"8890000","encargado":"Mart\u00edn Munevar"}]';
+	//servicio retorna este json
+	var listaEscenarios = '[{"id":"2","nombre":"Bosque Popular","longitud":"-75.473853","latitud":"5.036146","direccion":"Cra 31 Via Enea","imagen":"_files\/escenario\/img\/20140803122230000000-__-bosque.jpg","telefono":"8890000","encargado":"Arnulfo Guar\u00edn"},{"id":"1","nombre":"Coliseo Mayor","longitud":"-75.487366","latitud":"5.057593","direccion":"Cra 23 # 63 - 18","imagen":"_files\/escenario\/img\/20140803122230000000-__-coliseo.jpeg","telefono":"8890000","encargado":"Mart\u00edn Munevar"}]';
 	listaEscenarios =eval(listaEscenarios);
 	geocoder = new google.maps.Geocoder();
 
@@ -267,12 +293,11 @@ function toggleBounce() {
              });
 			 google.maps.event.addListener(marker, 'click', toggleBounce);
 			 
-			
-				console.log(listaEscenarios.length)
+				//console.log(listaEscenarios.length)
 				$.each(listaEscenarios, function (indice, valor) {	
-					console.log(valor)
+					//console.log(valor)
 					setTimeout(function() {
-					console.log(valor.id)
+					//console.log(valor.id)
 					var imageIcon2 = 'img/puntoEscenario.png';	
 				  
 					var marker = new google.maps.Marker({
@@ -284,7 +309,7 @@ function toggleBounce() {
 						clickable: true
 					  })
 					marker.info = new google.maps.InfoWindow({
-					  content: '<b>' + valor.nombre + '</b> ' + valor.direccion + ' '
+					  content: '<b>' + valor.nombre + '</b></br> ' + valor.direccion + '</br><img src="' + servidorUrl + valor.imagen + '" alt="" height="128" width="128">  '
 					});
 					
 					google.maps.event.addListener(marker, 'click', function() {
@@ -292,7 +317,7 @@ function toggleBounce() {
 					});
 				  markers.push(marker);
 				  
-				}, indice * 1000);
+				}, indice * 500);
 			});
 		}
 			 
