@@ -219,7 +219,10 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li class="active">
-							<a href="#">Mi Perfil</a>
+							<a href="#">Mi Perfil</a> 
+						</li>
+						<li>
+							<a href="#"  onclick="abrirPanelRegistrarDeportes()" >Mis deportes</a>
 						</li>
 						<li>
 						    <a href="#" onclick="abrirPanelEscenarios()" >Escenarios</a>
@@ -231,12 +234,10 @@
 							<a href="#"  onclick="abrirPanelEventos()" >Crear evento</a>
 						</li>
 						
-						<li class="dropdown">
+						<!--li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mas...<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
-								<li>
-									<a href="#"  onclick="abrirPanelRegistrarDeportes()" >Registrar Deportes de Interes</a>
-								</li>
+								
 								<li>
 									<a href="#">Amigos</a>
 								</li>
@@ -246,7 +247,7 @@
 								</li>
 								
 							</ul>
-						</li>
+						</li-->
 					</ul>
 					
 				</div>
@@ -256,7 +257,7 @@
 	</div>
 	<div id="panelMuro" class="container" style="display:none">
 		<div class="row clearfix">
-			<div class="col-md-12 column">
+			<div id="publicacionesMuro" class="col-md-12 column">
 				<div class="media well">
 					 <a href="#" class="pull-left"><img src="http://www.40defiebre.com/wp-content/uploads/2013/12/Captura-de-pantalla-2013-12-08-a-las-12.41.00-64x64.png" class="media-object photoProfile" alt='' /></a>
 					<div class="media-body">
