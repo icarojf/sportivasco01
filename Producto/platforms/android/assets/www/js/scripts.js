@@ -3,6 +3,7 @@ var myLocation = new google.maps.LatLng(5.067132,-75.51828799999998);
 var servidorUrl = 'http://sportivas.com.co/';
 
 var map, mapEscenarios, mapEventos;
+var listaEscenariosCiudad;
 var markers = [];
 
 var escenariosCiudad = [];// = ['Bosque popular', 'Coliseo mayor', 'Coliseo menor', 'Club Manizales', 'Escenario 1'];
@@ -22,13 +23,15 @@ var eventosCiudad = [];// = ['Bosque popular', 'Coliseo mayor', 'Coliseo menor',
 		$(this).parent().parent().find('.active').removeClass('active');
 		$(this).parent().addClass('active').css('font-weight', 'bold');
 	});
-	
-	var listaEscenariosCiudad = '[{"id":"2","nombre":"Bosque Popular","longitud":"-75.473853","latitud":"5.036146","direccion":"Cra 31 Via Enea","imagen":"_files\/escenario\/img\/20140803122230000000-__-bosque.jpg","telefono":"8890000","encargado":"Arnulfo Guar\u00edn"},{"id":"1","nombre":"Coliseo Mayor","longitud":"-75.487366","latitud":"5.057593","direccion":"Cra 23 # 63 - 18","imagen":"_files\/escenario\/img\/20140803122230000000-__-coliseo.jpeg","telefono":"8890000","encargado":"Mart\u00edn Munevar"}]';
-	listaEscenariosCiudad =eval(listaEscenariosCiudad);
+	servicioObtenerEscenarios();
+	//listaEscenariosCiudad = '[{"id":"2","nombre":"Bosque Popular","longitud":"-75.473853","latitud":"5.036146","direccion":"Cra 31 Via Enea","imagen":"_files\/escenario\/img\/20140803122230000000-__-bosque.jpg","telefono":"8890000","encargado":"Arnulfo Guar\u00edn"},{"id":"1","nombre":"Coliseo Mayor","longitud":"-75.487366","latitud":"5.057593","direccion":"Cra 23 # 63 - 18","imagen":"_files\/escenario\/img\/20140803122230000000-__-coliseo.jpeg","telefono":"8890000","encargado":"Mart\u00edn Munevar"}]';
+	//listaEscenariosCiudad =eval(listaEscenariosCiudad);
 	
 	$.each(listaEscenariosCiudad, function (indice, dato) {	
 		escenariosCiudad[indice] = dato.nombre;
  	});
+	
+	//alert(listaEscenariosCiudad);
 	
 	var listaEventosCiudad = '[{"id":"2","titulo":"Torneo de Ultimate Femenino","fecha":"2014-08-22","hora":"10:00","descripcion":"Torneo Femenino de Ultimate que se llevar\u00e1 a cabo en las instalaciones del bosque popular cerca a la cafeter\u00eda.","telefono":"8890000","email":"contacto@correo.com","escenario-nombre":"Bosque Popular","escenario-latitud":"5.036146","escenario-longitud":"-75.473853","escenario-direccion":"Cra 31 Via Enea"},{"id":"1","titulo":"Caminata Campa\u00f1a Contra el Cancer de mama","fecha":"2014-08-08","hora":"09:00","descripcion":"Marcha para tomar conciencia de los cuidados para combatir el c\u00e1ncer de mama.","telefono":"8890000","email":"contacto@correo.com","escenario-nombre":"Coliseo Mayor","escenario-latitud":"5.057593","escenario-longitud":"-75.487366","escenario-direccion":"Cra 23 # 63 - 18"}]';
 	listaEventosCiudad =eval(listaEventosCiudad);
@@ -80,6 +83,37 @@ var eventosCiudad = [];// = ['Bosque popular', 'Coliseo mayor', 'Coliseo menor',
   
 });
 
+function servicioObtenerEscenarios(){
+		try{
+			$.ajax({
+				type: "POST",
+				url: servidorUrl +'_common/_ajax/escenario.php',
+				dataType: 'json', 
+				async:false,
+				data:{o:1},				
+				success: function(msg) { 
+						AjaxOK(msg);
+				},
+				error: AjaxError
+				});
+		
+		}catch(exception){alert('e:'+exception)}
+
+		function AjaxOK(result) {
+			if(result=="1"){
+				alert('no hay escenarios');
+			}else{
+				
+				listaEscenariosCiudad =eval(result);
+				//alert('escenarios:'+listaEscenariosCiudad.length);
+			}
+		} 
+		
+		function AjaxError(result) { 
+			 alert("ERROR " + result.status + ' ' + result.statusText);
+		}
+}
+
 
 function abrirPanelPrincipal(){
 	cerrarPaneles();
@@ -123,7 +157,7 @@ function cerrarPaneles(){
 	$("#panelLogin").hide();
 	$("#panelMuro").hide();
 	$("#panelEvento").hide();
-	$("#panelEventoBusqueda").hide();
+	$("#panelEventosBusqueda").hide();
 	$("#panelRegistrarDeportes").hide();
 	$("#panelEscenarios").hide();
 }
@@ -285,8 +319,41 @@ function showMarkers() {
   function listarEscenarios(){
 	markers = [];
 	//servicio retorna este json
-	var listaEscenarios = '[{"id":"2","nombre":"Bosque Popular","longitud":"-75.473853","latitud":"5.036146","direccion":"Cra 31 Via Enea","imagen":"_files\/escenario\/img\/20140803122230000000-__-bosque.jpg","telefono":"8890000","encargado":"Arnulfo Guar\u00edn"},{"id":"1","nombre":"Coliseo Mayor","longitud":"-75.487366","latitud":"5.057593","direccion":"Cra 23 # 63 - 18","imagen":"_files\/escenario\/img\/20140803122230000000-__-coliseo.jpeg","telefono":"8890000","encargado":"Mart\u00edn Munevar"}]';
-	listaEscenarios =eval(listaEscenarios);
+	/*try{
+			var u=$("#login-username").val();
+			var p=""+CryptoJS.MD5($("#login-password").val()).toString();
+			//alert(u+p);
+			$.ajax({
+				type: "POST",
+				url: servidorUrl +'_common/_ajax/login.php',
+				dataType: 'json', 
+				async:false,
+				data:{u:u, p:p},				
+				success: function(msg) { 
+						AjaxOK(msg);
+				},
+				error: AjaxError
+				});
+		
+		}catch(exception){alert('e:'+exception)}
+
+		function AjaxOK(result) {
+			if(result=="1"){
+				alert('usuario o password sin coincidencias');
+			}else if(result.nickname!=null){
+				//alert('Bienvenido '+result.nickname);
+				abrirPanelPrincipal();
+			}
+		} 
+		
+		function AjaxError(result) { 
+			 alert("ERROR " + result.status + ' ' + result.statusText);
+		}*/
+	
+	
+	//var listaEscenariosCiudad = '[{"id":"2","nombre":"Bosque Popular","longitud":"-75.473853","latitud":"5.036146","direccion":"Cra 31 Via Enea","imagen":"_files\/escenario\/img\/20140803122230000000-__-bosque.jpg","telefono":"8890000","encargado":"Arnulfo Guar\u00edn"},{"id":"1","nombre":"Coliseo Mayor","longitud":"-75.487366","latitud":"5.057593","direccion":"Cra 23 # 63 - 18","imagen":"_files\/escenario\/img\/20140803122230000000-__-coliseo.jpeg","telefono":"8890000","encargado":"Mart\u00edn Munevar"}]';
+	listaEscenariosCiudad =eval(listaEscenariosCiudad);
+	
 	geocoder = new google.maps.Geocoder();
 
      var address = "manizales";
@@ -327,8 +394,8 @@ function showMarkers() {
              });
 			 google.maps.event.addListener(marker, 'click', toggleBounce);
 			 
-				//console.log(listaEscenarios.length)
-				$.each(listaEscenarios, function (indice, valor) {	
+				//console.log(listaEscenariosCiudad.length)
+				$.each(listaEscenariosCiudad, function (indice, valor) {	
 					//console.log(valor)
 					setTimeout(function() {
 					//console.log(valor.id)
