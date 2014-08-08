@@ -15,6 +15,9 @@ function abrirDescripcion(idD){
 }
 	
  $(document).ready(function () {
+ 
+	//navigator.splashscreen.hide();
+
 	google.maps.event.addDomListener(window, 'load', inicializarMapa);
 	google.maps.event.addDomListener(window, 'load', listarEscenarios);
 	google.maps.event.addDomListener(window, 'load', listarEventos);
