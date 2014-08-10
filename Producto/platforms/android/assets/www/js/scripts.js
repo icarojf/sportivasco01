@@ -3,7 +3,7 @@ var myLocation = new google.maps.LatLng(5.067132,-75.51828799999998);
 var servidorUrl = 'http://sportivas.com.co/';
 
 var map, mapEscenarios, mapEventos;
-var listaEscenariosCiudad;
+var listaEscenariosCiudad, listaEventosCiudad, listaPublicaciones;
 var markers = [];
 
 var escenariosCiudad = [];// = ['Bosque popular', 'Coliseo mayor', 'Coliseo menor', 'Club Manizales', 'Escenario 1'];
@@ -31,28 +31,28 @@ function abrirDescripcion(idD){
 		$(this).parent().addClass('active').css('font-weight', 'bold');
 	});
 	
-	//servicioObtenerEscenarios();
-	listaEscenariosCiudad = '[{"id":"2","nombre":"Bosque Popular","longitud":"-75.473853","latitud":"5.036146","direccion":"Cra 31 Via Enea","imagen":"_files\/escenario\/img\/20140803122230000000-__-bosque.jpg","telefono":"8890000","encargado":"Arnulfo Guar\u00edn"},{"id":"1","nombre":"Coliseo Mayor","longitud":"-75.487366","latitud":"5.057593","direccion":"Cra 23 # 63 - 18","imagen":"_files\/escenario\/img\/20140803122230000000-__-coliseo.jpeg","telefono":"8890000","encargado":"Mart\u00edn Munevar"}]';
-	listaEscenariosCiudad =eval(listaEscenariosCiudad);
+	servicioObtenerEscenarios();
+	//listaEscenariosCiudad = '[{"id":"2","nombre":"Bosque Popular","longitud":"-75.473853","latitud":"5.036146","direccion":"Cra 31 Via Enea","imagen":"_files\/escenario\/img\/20140803122230000000-__-bosque.jpg","telefono":"8890000","encargado":"Arnulfo Guar\u00edn"},{"id":"1","nombre":"Coliseo Mayor","longitud":"-75.487366","latitud":"5.057593","direccion":"Cra 23 # 63 - 18","imagen":"_files\/escenario\/img\/20140803122230000000-__-coliseo.jpeg","telefono":"8890000","encargado":"Mart\u00edn Munevar"}]';
+	//listaEscenariosCiudad =eval(listaEscenariosCiudad);
 	
 	$.each(listaEscenariosCiudad, function (indice, dato) {	
 		escenariosCiudad[indice] = dato.nombre;
  	});
 	
-	var listaEventosCiudad = '[{"id":"2","titulo":"Torneo de Ultimate Femenino","fecha":"2014-08-22","hora":"10:00","descripcion":"Torneo Femenino de Ultimate que se llevar\u00e1 a cabo en las instalaciones del bosque popular cerca a la cafeter\u00eda.","telefono":"8890000","email":"contacto@correo.com","escenario-nombre":"Bosque Popular","escenario-latitud":"5.036146","escenario-longitud":"-75.473853","escenario-direccion":"Cra 31 Via Enea"},{"id":"1","titulo":"Caminata Campa\u00f1a Contra el Cancer de mama","fecha":"2014-08-08","hora":"09:00","descripcion":"Marcha para tomar conciencia de los cuidados para combatir el c\u00e1ncer de mama.","telefono":"8890000","email":"contacto@correo.com","escenario-nombre":"Coliseo Mayor","escenario-latitud":"5.057593","escenario-longitud":"-75.487366","escenario-direccion":"Cra 23 # 63 - 18"}]';
-	listaEventosCiudad =eval(listaEventosCiudad);
+	//listaEventosCiudad = '[{"id":"2","titulo":"Torneo de Ultimate Femenino","fecha":"2014-08-22","hora":"10:00","descripcion":"Torneo Femenino de Ultimate que se llevar\u00e1 a cabo en las instalaciones del bosque popular cerca a la cafeter\u00eda.","telefono":"8890000","email":"contacto@correo.com","escenario-nombre":"Bosque Popular","escenario-latitud":"5.036146","escenario-longitud":"-75.473853","escenario-direccion":"Cra 31 Via Enea"},{"id":"1","titulo":"Caminata Campa\u00f1a Contra el Cancer de mama","fecha":"2014-08-08","hora":"09:00","descripcion":"Marcha para tomar conciencia de los cuidados para combatir el c\u00e1ncer de mama.","telefono":"8890000","email":"contacto@correo.com","escenario-nombre":"Coliseo Mayor","escenario-latitud":"5.057593","escenario-longitud":"-75.487366","escenario-direccion":"Cra 23 # 63 - 18"}]';
+	//listaEventosCiudad =eval(listaEventosCiudad);
 	
-	//servicioObtenerEventos();
+	servicioObtenerEventos();
 	$.each(listaEventosCiudad, function (indice, dato) {	
 		eventosCiudad[indice] = dato.titulo;
  	});
 	
 	
-	var listaPublicaciones = '[{"id":"1","titulo":"As\u00ed va la novela de la continuidad de Jos\u00e9 P\u00e9kerman","fecha":"2014-08-03","fuente":"http:\/\/www.eltiempo.com\/deportes\/futbol\/proceso-de-renovacion-de-pekerman-con-la-seleccion-colombia\/14335035","descripcion":"Este s\u00e1bado, en Buenos Aires, se esperaba el primer encuentro cara a cara entre Luis Bedoya, el presidente de la Federaci\u00f3n Colombiana de F\u00fatbol (Colf\u00fatbol) y Pascual Lezcano, el empresario del entrenador Jos\u00e9 P\u00e9kerman, el director t\u00e9cnico que en los dos \u00faltimos a\u00f1os y medio clasific\u00f3 a la Selecci\u00f3n Colombia a un mundial de f\u00fatbol tras 16 a\u00f1os y tres intentos consecutivos de fracasos, y logr\u00f3 la m\u00e1s vibrante y brillante participaci\u00f3n jam\u00e1s lograda en un mundial con su llegada a los cuartos de final de la reciente Copa del Mundo de Brasil 2014.","imagen":"_files\/publicacion\/img\/20140803122230000000-__-pekerman.jpg","usuario-nombre":"Admin","usuario-apellido":"Admin","usuario-nickname":"admin"},{"id":"2","titulo":"Julia Takacs oro y Record en el Campeonato Iberoameriacano","fecha":"2014-08-03","fuente":"http:\/\/mujerydeporte.org\/w\/?p=8275","descripcion":"La espa\u00f1ola Julia Takacs super\u00f3 hoy el r\u00e9cord de los 10 kil\u00f3metros marcha del Campeonato Iberoamericano de Atletismo, que comenz\u00f3 hoy en Sao Paulo, y se hizo con la medalla de oro de la prueba.<br>La madrile\u00f1a se impuso en 43:10.95 y bati\u00f3 as\u00ed la marca realizada por la portuguesa Ana Cabecinha en el Campeonato Iberoamericano en 2010 (43:31.21), seg\u00fan inform\u00f3 la asesor\u00eda de prensa del torneo.","imagen":"_files\/publicacion\/img\/20140803122230000000-__-julia.jpg","usuario-nombre":"Admin","usuario-apellido":"Admin","usuario-nickname":"admin"},{"id":"3","titulo":"Banquillo, en femenino","fecha":"2014-08-03","fuente":"http:\/\/deportes.elpais.com\/deportes\/2014\/07\/29\/actualidad\/1406652471_582011.html","descripcion":"Ha entrado en la historia por ser quien es, o mejor, por lo que es. Aunque no le guste y lo demuestre continuamente. \u201cNo es un orgullo para m\u00ed, no lo veo as\u00ed\u201d, asegura Corinne Diacre, que lleva tres semanas al frente del Clermont Foot, un modesto equipo de la Segunda Divisi\u00f3n francesa, lo que la convierte en la primera mujer que dirige a un equipo profesional de f\u00fatbol masculino.","imagen":"_files\/publicacion\/img\/20140803122230000000-__-femenino.jpg","usuario-nombre":"Admin","usuario-apellido":"Admin","usuario-nickname":"admin"}]';
+	//listaPublicaciones = '[{"id":"1","titulo":"As\u00ed va la novela de la continuidad de Jos\u00e9 P\u00e9kerman","fecha":"2014-08-03","fuente":"http:\/\/www.eltiempo.com\/deportes\/futbol\/proceso-de-renovacion-de-pekerman-con-la-seleccion-colombia\/14335035","descripcion":"Este s\u00e1bado, en Buenos Aires, se esperaba el primer encuentro cara a cara entre Luis Bedoya, el presidente de la Federaci\u00f3n Colombiana de F\u00fatbol (Colf\u00fatbol) y Pascual Lezcano, el empresario del entrenador Jos\u00e9 P\u00e9kerman, el director t\u00e9cnico que en los dos \u00faltimos a\u00f1os y medio clasific\u00f3 a la Selecci\u00f3n Colombia a un mundial de f\u00fatbol tras 16 a\u00f1os y tres intentos consecutivos de fracasos, y logr\u00f3 la m\u00e1s vibrante y brillante participaci\u00f3n jam\u00e1s lograda en un mundial con su llegada a los cuartos de final de la reciente Copa del Mundo de Brasil 2014.","imagen":"_files\/publicacion\/img\/20140803122230000000-__-pekerman.jpg","usuario-nombre":"Admin","usuario-apellido":"Admin","usuario-nickname":"admin"},{"id":"2","titulo":"Julia Takacs oro y Record en el Campeonato Iberoameriacano","fecha":"2014-08-03","fuente":"http:\/\/mujerydeporte.org\/w\/?p=8275","descripcion":"La espa\u00f1ola Julia Takacs super\u00f3 hoy el r\u00e9cord de los 10 kil\u00f3metros marcha del Campeonato Iberoamericano de Atletismo, que comenz\u00f3 hoy en Sao Paulo, y se hizo con la medalla de oro de la prueba.<br>La madrile\u00f1a se impuso en 43:10.95 y bati\u00f3 as\u00ed la marca realizada por la portuguesa Ana Cabecinha en el Campeonato Iberoamericano en 2010 (43:31.21), seg\u00fan inform\u00f3 la asesor\u00eda de prensa del torneo.","imagen":"_files\/publicacion\/img\/20140803122230000000-__-julia.jpg","usuario-nombre":"Admin","usuario-apellido":"Admin","usuario-nickname":"admin"},{"id":"3","titulo":"Banquillo, en femenino","fecha":"2014-08-03","fuente":"http:\/\/deportes.elpais.com\/deportes\/2014\/07\/29\/actualidad\/1406652471_582011.html","descripcion":"Ha entrado en la historia por ser quien es, o mejor, por lo que es. Aunque no le guste y lo demuestre continuamente. \u201cNo es un orgullo para m\u00ed, no lo veo as\u00ed\u201d, asegura Corinne Diacre, que lleva tres semanas al frente del Clermont Foot, un modesto equipo de la Segunda Divisi\u00f3n francesa, lo que la convierte en la primera mujer que dirige a un equipo profesional de f\u00fatbol masculino.","imagen":"_files\/publicacion\/img\/20140803122230000000-__-femenino.jpg","usuario-nombre":"Admin","usuario-apellido":"Admin","usuario-nickname":"admin"}]';
 	//listaPublicaciones = eval(listaPublicaciones.replace(/-/g, "_"));	
-	listaPublicaciones = eval(listaPublicaciones.replace(/usuario-nombre/g,"usuario_nombre"));
+	//listaPublicaciones = eval(listaPublicaciones.replace(/usuario-nombre/g,"usuario_nombre"));
 	
-	//servicioObtenerPublicaciones();
+	servicioObtenerPublicaciones();
 	$.each(listaPublicaciones, function (indice, dato) {	
 		//publicaciones[indice] = dato.titulo;
 		var articulo ='<div class="media well">'+
@@ -183,6 +183,39 @@ function servicioObtenerEventos(){
 		}
 }
 
+function servicioObtenerPublicaciones(){
+		try{
+			$.ajax({
+				type: "POST",
+				url: servidorUrl +'_common/_ajax/publicacion.php',
+				dataType: 'json', 
+				async:false,
+				data:{o:1},				
+				success: function(msg) { 
+						AjaxOK(msg);
+				},
+				error: AjaxError
+				});
+		
+		}catch(exception){alert('e:'+exception)}
+
+		function AjaxOK(result) {
+			if(result=="1"){
+				alert('no hay eventos');
+			}else{
+				
+				listaPublicaciones = result;
+				listaPublicaciones = eval(listaPublicaciones.replace(/usuario-nombre/g,"usuario_nombre"));
+				alert('publicaciones:'+listaPublicaciones.length);
+			}
+		} 
+		
+		function AjaxError(result) { 
+			 alert("ERROR " + result.status + ' ' + result.statusText);
+		}
+}
+	
+
 
 function abrirPanelPrincipal(){
 	cerrarPaneles();
@@ -235,8 +268,8 @@ $( document ).ready(function() {
 
 	$("#btn-login").click(function() {	
 	
-		abrirPanelPrincipal();
-		/*try{
+		//abrirPanelPrincipal();
+		try{
 			var u=$("#login-username").val();
 			var p=""+CryptoJS.MD5($("#login-password").val()).toString();
 			//alert(u+p);
@@ -265,24 +298,33 @@ $( document ).ready(function() {
 		
 		function AjaxError(result) { 
 			 alert("ERROR " + result.status + ' ' + result.statusText);
-		}*/
+		}
 	});
 	
 	
 	$("#btn-signup").click(function() {	
 		try{
+		//alert($("#nombreRegistro").val());
 			$.ajax({
 				type: "POST",
 				url: servidorUrl + '_common/_ajax/registro.php',
 				dataType: 'json', 
 				async:false,
-				data: {n:'usuario1', a : 'apellido', e : 'u@gmail.com',f : '01/02/2014',c : CryptoJS.MD5('123'), k : 'nickname'}, 
+				data: {n:$("#nombreRegistro").val(), a : $("#apellidosRegistro").val(), e : $("#emailRegistro").val(),f : $("#fechaNacimientoRegistro").val(),c : CryptoJS.MD5($("#passwordRegistro").val()).toString(), k : $("#nicknameRegistro").val()}, 
 				
 				success: function (data, textStatus, jqXHR) {
 					
 					console.log(data);
-					alert(data);
-									//abrirPanelPrincipal();
+					if(data=="0"){
+						alert("Error de parámetros o incompletos");
+					}else if(data=="1"){
+						alert("Ya existe un registro con igual Email o Nickname");
+					}else if(data=="2"){
+						alert("Error al guardar en base de datos");
+					}else if(data=="100"){
+						alert("Usuario creado con exito!");
+						abrirPanelPrincipal();
+					}
 					
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
